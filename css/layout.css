@@ -1,0 +1,338 @@
+:root {
+                /* ===== ALAP HÁTTÉR ===== */
+                --bg: #0B0F0C;   /* App teljes háttér */
+                --panel-bg: #121814;   /* Kártyák, szekciók háttere */
+                --panel-border: #283024;   /* Panelek körvonala */
+                --input-bg: #1A201A;   /* Input mezők háttere */
+                --input-border: #343F33;   /* Input keret */
+                --readonly: #242b20;
+                --button-bg: #1A241A;   /* Normál gomb háttér */
+                --button-border: #2E3D2B;   /* Gomb keret */
+                /* ===== FŐ SZÍNEK ===== */
+                --primary: #7FA22E;   /* Fő katonai zöld */
+                --primary-dark: #5B7A21;   /* Hover / aktív állapot */
+                --accent: #A9C94A;   /* Kiemelés */
+                --success: #6FAE3A;   /* Sikeres művelet */
+                --warning: #C9B458;  /* Figyelmeztetés */
+                --danger: #B94A48;  /* Hiba / veszély */
+                /* ===== SZÖVEG ===== */
+                --text-primary: #E6EAE3;   /* Fő szöveg */
+                --text-secondary: #A3AC9A;  /* Másodlagos szöveg */
+                --text-muted: #6E756A;   /* Inaktív / halvány */
+                /* ===== NAVIGÁCIÓ ===== */
+                --nav-active: #7FA22E;  /* Aktív menü ikon/szöveg */
+                --nav-inactive: #151A16;   /* Inaktív menü */
+                /* ===== EXTRA ===== */
+                --shadow: rgba(0,0,0,0.65);  /* Árnyék */
+                --glow: rgba(127,162,46,0.25);   /* Zöld fény effekt */
+                --gradient-primary: linear-gradient(    /* Katonai zöld átmenet */
+                    90deg,
+                    #182018 0%,
+                    #2D3B1F 50%,
+                    #182018 100%
+                );
+                
+            }
+            :root.dm {
+
+                /* ===== ALAP HÁTTÉR ===== */
+
+                --bg: #E7D9BC;
+                --panel-bg: #F2E7D1;
+                --panel-border: #C9B799;
+                --input-bg: #E8DEC3;
+                --input-border: #B8A684;
+                --readonly: #D8CCB3;
+                --button-bg: #D7C6A4;
+                --button-border: #A98B5D;
+                /* ===== FŐ SZÍNEK ===== */
+                --primary: #8C6D3B;
+                --primary-dark: #6F5330;
+                --accent: #B38B4D;
+                --success: #6E8B3D;
+                --warning: #C98A2E;
+                --danger: #A33D2E;
+                /* ===== SZÖVEG ===== */
+                --text-primary: #3E3326;
+                --text-secondary: #6B5E4B;
+                --text-muted: #8E7E67;
+                /* ===== NAVIGÁCIÓ ===== */
+                --nav-active: #8C6D3B;
+                --nav-inactive: #C7B89C;
+                /* ===== EXTRA ===== */
+                --shadow: rgba(62, 51, 38, 0.18);
+                --glow: rgba(179, 139, 77, 0.22);
+                --gradient-primary: linear-gradient(
+                    90deg,
+                    #D6C39C 0%,
+                    #B38B4D 50%,
+                    #D6C39C 100%
+                );
+            }
+        
+            * {
+                box-sizing: border-box;
+                transition:
+                    background-color 0.3s ease,
+                    border-color 0.3s ease,
+                    color 0.3s ease,
+                    box-shadow 0.3s ease;
+            }
+            input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+
+
+            body {
+                background-color: var(--bg);
+            }
+            .content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 12px;
+                background-color: var(--bg);
+                color: var(--text-primary);
+            }
+
+            .header {
+                border: none;
+                background: var(--bg);
+                color: var(--accent);
+                text-transform: uppercase;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            h1 {
+                font-size: 30px;
+                margin: 0;
+                text-align: center;
+            }
+
+            /*dark mode*/
+            .dm-out {
+                height: 20px;
+                width: 40px;
+                border: solid 1px var(--accent);
+                border-radius: 10px;
+                background-color: var(--button-bg);
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .dm-active .dm-in {
+                transform: translateX(19px);
+            }
+            .dm-in {
+                height: 15px;
+                width: 15px;
+                background-color: var(--bg);
+                border-radius: 50%;
+                border: solid 1px var(--accent);
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                transition:
+                    transform 0.3s ease,
+                    background-color 0.3s ease,
+                    border-color 0.3s ease;
+            }
+            
+
+
+            .hamb {
+                height: 40px;
+                width: 40px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                cursor: pointer;
+            }
+            .hamb hr {
+                border: solid 1px var(--accent);
+            }
+            .hambPanel {
+                height: fit-content;
+                width: 210px;
+                padding: 1rem 2rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: end;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background-color: var(--bg);
+                border-radius: 8px;
+                opacity: 1;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                border: solid 2px var(--panel-border);
+                box-shadow: 0 4px 4px var(--shadow);
+                z-index: 100;
+            }
+            .beallitasok {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                position: absolute;
+                top: 290px;
+                right: 5px;
+                padding: 1rem 2rem;
+                background-color: var(--bg);
+                border: solid 2px var(--panel-border);
+                border-end-start-radius: 8px;
+                border-end-end-radius: 8px;
+                z-index: 99;
+                width: 200px;
+                box-shadow: 0 4px 4px var(--shadow);
+                opacity: 1;
+                transition: all 0.2s ease;
+            }
+            .hidden {
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+            }
+            .hambBtn {
+                padding: 1rem 2rem;
+                background-color: var(--button-bg);
+                border: solid 1px var(--button-border);
+                border-radius: 8px;
+                font-weight: 600;
+                color: var(--text-primary);
+                cursor: pointer;
+                transition: scale 0.2s ease, 
+                            box-shadow 0.2s ease, 
+                            border-colour 0.2s ease, 
+                            background-color 0.2s ease;
+            }
+            .hambBtn:active {
+                scale: 1.05;
+                box-shadow: 0 0px 10px var(--glow);
+                border-color: var(--accent);
+            }
+            
+
+
+
+            section {
+                background-color: var(--panel-bg);
+                border: solid 2px var(--panel-border);
+                border-radius: 8px;
+                padding: 12px;
+            }
+            section h3 {
+                color: var(--primary);
+                margin-top: 0;
+                margin-bottom: 0;
+                text-transform: uppercase;
+            }
+            form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .celkoordinata {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .poi {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            label {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                text-align: left;
+                width: 100%;
+                margin-bottom: 4px;
+            }
+            input {
+                height: 46px;
+                padding: 0 14px;
+                border: 1px solid var(--input-border);
+                border-radius: 8px;
+                background-color: var(--input-bg);
+                color: var(--text-primary);
+                font-size: 20px;
+                font-weight: 600;
+                outline: none;
+                width: 100%;
+            }
+            input:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 10px var(--glow);
+            }
+            input:invalid {
+                border-color: var(--danger);
+            }
+            input:valid {
+                border-color: var(--primary);
+            }
+            .eredmenyek input {
+                color: var(--accent);
+                background-color: var(--readonly);
+            }
+            .eredmenyek {
+                display: flex;
+                flex-direction: column;
+            }
+            .er-sor{
+                display: flex;
+                justify-content: space-between;
+                text-transform: uppercase;
+            }
+            .er-sor h4 {
+                color: var(--text-muted);
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 0;
+            }
+            .er-sor p {
+                color: var(--text-primary);
+                margin-bottom: 0;
+                font-size: 20px;
+                font-weight: 600;
+            }
+            hr {
+                width: 100%;
+                font-size: 1px;
+                margin-top: 0;
+                margin-bottom: 8px;
+                height: 1px;
+                border: none;
+                background-color: var(--input-border);
+            }
+
+            .btn {
+                background-color: var(--panel-bg);
+                border: solid 1px var(--button-border);
+                color: var(--text-muted);
+                font-weight: 600;
+                padding: 8px;
+                border-radius: 8px;
+                width: 90%;
+                margin: 10px auto 0 auto;
+                display: block;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .usable {
+                background: var(--accent);
+                border-color: var(--primary);
+                color: var(--text-primary);
+                box-shadow:  0 4px 5px var(--shadow);
+            }
+            button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }

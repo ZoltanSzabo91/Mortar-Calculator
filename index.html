@@ -4,267 +4,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Mortar calculator</title>
-        <style>
-            :root {
-                /* ===== ALAP HÁTTÉR ===== */
-                --bg: #0B0F0C;   /* App teljes háttér */
-                --panel-bg: #121814;   /* Kártyák, szekciók háttere */
-                --panel-border: #283024;   /* Panelek körvonala */
-                --input-bg: #1A201A;   /* Input mezők háttere */
-                --input-border: #343F33;   /* Input keret */
-                --readonly: #242b20;
-                --button-bg: #1A241A;   /* Normál gomb háttér */
-                --button-border: #2E3D2B;   /* Gomb keret */
-                /* ===== FŐ SZÍNEK ===== */
-                --primary: #7FA22E;   /* Fő katonai zöld */
-                --primary-dark: #5B7A21;   /* Hover / aktív állapot */
-                --accent: #A9C94A;   /* Kiemelés */
-                --success: #6FAE3A;   /* Sikeres művelet */
-                --warning: #C9B458;  /* Figyelmeztetés */
-                --danger: #B94A48;  /* Hiba / veszély */
-                /* ===== SZÖVEG ===== */
-                --text-primary: #E6EAE3;   /* Fő szöveg */
-                --text-secondary: #A3AC9A;  /* Másodlagos szöveg */
-                --text-muted: #6E756A;   /* Inaktív / halvány */
-                /* ===== NAVIGÁCIÓ ===== */
-                --nav-active: #7FA22E;  /* Aktív menü ikon/szöveg */
-                --nav-inactive: #151A16;   /* Inaktív menü */
-                /* ===== EXTRA ===== */
-                --shadow: rgba(0,0,0,0.65);  /* Árnyék */
-                --glow: rgba(127,162,46,0.25);   /* Zöld fény effekt */
-                --gradient-primary: linear-gradient(    /* Katonai zöld átmenet */
-                    90deg,
-                    #182018 0%,
-                    #2D3B1F 50%,
-                    #182018 100%
-                );
-                
-            }
-            :root.dm {
-
-                /* ===== ALAP HÁTTÉR ===== */
-
-                --bg: #E7D9BC;
-                --panel-bg: #F2E7D1;
-                --panel-border: #C9B799;
-                --input-bg: #E8DEC3;
-                --input-border: #B8A684;
-                --readonly: #D8CCB3;
-                --button-bg: #D7C6A4;
-                --button-border: #A98B5D;
-                /* ===== FŐ SZÍNEK ===== */
-                --primary: #8C6D3B;
-                --primary-dark: #6F5330;
-                --accent: #B38B4D;
-                --success: #6E8B3D;
-                --warning: #C98A2E;
-                --danger: #A33D2E;
-                /* ===== SZÖVEG ===== */
-                --text-primary: #3E3326;
-                --text-secondary: #6B5E4B;
-                --text-muted: #8E7E67;
-                /* ===== NAVIGÁCIÓ ===== */
-                --nav-active: #8C6D3B;
-                --nav-inactive: #C7B89C;
-                /* ===== EXTRA ===== */
-                --shadow: rgba(62, 51, 38, 0.18);
-                --glow: rgba(179, 139, 77, 0.22);
-                --gradient-primary: linear-gradient(
-                    90deg,
-                    #D6C39C 0%,
-                    #B38B4D 50%,
-                    #D6C39C 100%
-                );
-            }
-        
-            * {
-                box-sizing: border-box;
-                transition:
-                    background-color 0.3s ease,
-                    border-color 0.3s ease,
-                    color 0.3s ease,
-                    box-shadow 0.3s ease;
-            }
-            input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-            body {
-                background-color: var(--bg);
-            }
-            .content {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                gap: 12px;
-                background-color: var(--bg);
-                color: var(--text-primary);
-            }
-
-            .header {
-                border: none;
-                background: var(--bg);
-                color: var(--accent);
-                text-transform: uppercase;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-            }
-            h1 {
-                font-size: 30px;
-                margin: 0;
-                text-align: center;
-            }
-            .dm-out {
-                height: 20px;
-                width: 40px;
-                border: solid 1px var(--accent);
-                border-radius: 10px;
-                background-color: var(--button-bg);
-                position: relative;
-                cursor: pointer;
-            }
-            
-            .dm-active .dm-in {
-                transform: translateX(19px);
-            }
-            .dm-in {
-                height: 15px;
-                width: 15px;
-                background-color: var(--bg);
-                border-radius: 50%;
-                border: solid 1px var(--accent);
-                position: absolute;
-                top: 1px;
-                left: 1px;
-                transition:
-                    transform 0.3s ease,
-                    background-color 0.3s ease,
-                    border-color 0.3s ease;
-            }
-            
-            section {
-                background-color: var(--panel-bg);
-                border: solid 2px var(--panel-border);
-                border-radius: 8px;
-                padding: 12px;
-            }
-            section h3 {
-                color: var(--primary);
-                margin-top: 0;
-                margin-bottom: 0;
-                text-transform: uppercase;
-            }
-            form {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .celkoordinata {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-            }
-            .poi {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-            label {
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                color: var(--text-muted);
-                text-align: left;
-                width: 100%;
-                margin-bottom: 4px;
-            }
-            input {
-                height: 46px;
-                padding: 0 14px;
-                border: 1px solid var(--input-border);
-                border-radius: 8px;
-                background-color: var(--input-bg);
-                color: var(--text-primary);
-                font-size: 20px;
-                font-weight: 600;
-                outline: none;
-                width: 100%;
-            }
-            input:focus {
-                border-color: var(--primary);
-                box-shadow: 0 0 10px var(--glow);
-            }
-            input:invalid {
-                border-color: var(--danger);
-            }
-            input:valid {
-                border-color: var(--primary);
-            }
-            .eredmenyek input {
-                color: var(--accent);
-                background-color: var(--readonly);
-            }
-            .eredmenyek {
-                display: flex;
-                flex-direction: column;
-            }
-            .er-sor{
-                display: flex;
-                justify-content: space-between;
-                text-transform: uppercase;
-            }
-            .er-sor h4 {
-                color: var(--text-muted);
-                font-size: 13px;
-                font-weight: 600;
-                margin-bottom: 0;
-            }
-            .er-sor p {
-                color: var(--text-primary);
-                margin-bottom: 0;
-                font-size: 20px;
-                font-weight: 600;
-            }
-            hr {
-                width: 100%;
-                font-size: 1px;
-                margin-top: 0;
-                margin-bottom: 8px;
-                height: 1px;
-                border: none;
-                background-color: var(--input-border);
-            }
-
-            button {
-                background-color: var(--panel-bg);
-                border: solid 1px var(--button-border);
-                color: var(--text-muted);
-                padding: 8px;
-                border-radius: 8px;
-                width: 90%;
-                margin: 10px auto 0 auto;
-                display: block;
-                transition: all 0.3s ease;
-                cursor: pointer;
-            }
-            .usable {
-                background: var(--accent);
-                border-color: var(--primary);
-                color: var(--text-primary);
-                box-shadow:  0 4px 5px var(--shadow);
-            }
-            button:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-        </style>
+        <link rel="stylesheet" href="css/layout.css">
     </head>
     <body>
         <section class="header">
             <h1>Tűzvezetési számítások</h1>
-            <div class="dm-out"><div class="dm-in"></div></div>
+            <div id="hamb" class="hamb">
+                <hr><hr><hr>
+            </div>
+            <div class="hambPanel hidden">
+                
+                <button class="hambBtn">Tűzvezetés</button>
+                <button class="hambBtn">Astronómia</button>
+                <button class="hambBtn" id="beallit">Beállítások</button>
+            </div>
+            <div class="beallitasok hidden">
+                <div style="display: flex; flex-direction: row; align-items: center;"> 
+                    <p style="font-size: 12px; padding: 0 12px; color: var(--text-primary);">DarkMode</p>
+                    <div class="dm-out"><div class="dm-in"></div></div>
+                </div>
+                <button class="hambBtn" id="MilVonas">Vonás 6400</button>
+            </div>
         </section>
         <main class="content">
             <section>
@@ -316,13 +76,17 @@
             <section>
                 <h3>Cél a figyelőpontból</h3>
                 <hr>
+                <div class="poi">
+                    <label for="deltaAm">Delta Am</label>
+                    <input style="margin-bottom: 4px;" type="number" id="deltaAm" required placeholder="0">
+                </div>
                 <form>
                     <div class="poi">
                         <label for="tav">Távolság m-ben</label>
                         <input id="tav" name="tav" type="number" required>
                     </div>
                     <div class="poi">
-                        <label for="irany">Irányszög</label>
+                        <label for="irany" id="iranyLabel">Irányszög</label>
                         <input type="number" name="irany" id="irany" required>
                     </div>
                 </form>
@@ -333,7 +97,7 @@
                     <p id="targetX"></p>
                     <p id="targetY"></p>
                 </div>
-                <button  id="calculate" disabled>Számítás</button>
+                <button class="btn" id="calculate" disabled>Számítás</button>
             </section>
 
             <section class="eredmenyek">
@@ -356,128 +120,8 @@
                 <hr>
             </section>
         </main>
-        <script>
-            //dark mode
-            const dmButton = document.querySelector(".dm-out");
-
-            dmButton.addEventListener("click", () => {
-
-                document.documentElement.classList.toggle("dm");
-                dmButton.classList.toggle("dm-active");
-                // mentés
-                if(document.documentElement.classList.contains("dm")) {
-                    localStorage.setItem("theme", "desert");
-                } else {
-                    localStorage.setItem("theme", "forest");
-                }
-            });
-            const savedTheme = localStorage.getItem("theme");
-                if (savedTheme === "desert") {
-                    document.documentElement.classList.add("dm");
-                    dmButton.classList.add("dm-active");
-            }
-
-            // button disable
-            const button = document.getElementById("calculate");
-            const inputs = document.querySelectorAll("input");
-    
-
-            function checkInputs() {
-                let valid = true;
-
-                inputs.forEach(input => {
-                    if (!input.checkValidity()) {
-                        valid = false;
-                    }
-                });
-
-                if (valid) {
-                    button.disabled = false;
-                    button.classList.add("usable");
-                } else {
-                    button.disabled = true;
-                    button.classList.remove("usable");
-                }
-            }
-                
-
-            // Calculator
-            const zone1Square = document.getElementById("square1");
-            const zone1X = document.getElementById("east1");
-            const zone1Y = document.getElementById("north1");
-
-            const zone2Square = document.getElementById("square2");
-            const zone2X = document.getElementById("east2");
-            const zone2Y = document.getElementById("north2");
-
-            const figyCelTav = document.getElementById("tav");
-            const figyCelIrany = document.getElementById("irany");
-
-            const targetX = document.getElementById("targetX");
-            const targetY = document.getElementById("targetY");
-
-            const resultIrany = document.getElementById("resultIrany");
-            const resultTav = document.getElementById("resultTav");
-            const resultToltes = document.getElementById("resultToltes");
-
-            
-
-            function calculate() {
-                if (
-                    !zone1X.value ||
-                    !zone1Y.value ||
-                    !zone2X.value ||
-                    !zone2Y.value ||
-                    !figyCelTav.value ||
-                    !figyCelIrany.value
-                ) {
-                    return;
-                }
-
-                const figyX = Number(zone1X.value);
-                const figyY = Number(zone1Y.value);
-
-                const tuzX = Number(zone2X.value);
-                const tuzY = Number(zone2Y.value);
-
-                const tav = Number(figyCelTav.value);
-                const irany = Number(figyCelIrany.value);
-
-                const rad = irany * (2 * Math.PI / 6400);
-
-                const dxFigyCel = Math.sin(rad) * tav;
-                const dyFigyCel = Math.cos(rad) * tav;
-
-                const celX = Math.round(figyX + dxFigyCel);
-                const celY = Math.round(figyY + dyFigyCel);
-
-                targetX.textContent = celX;
-                targetY.textContent = celY;
-
-                const dxTuzCel = celX - tuzX;
-                const dyTuzCel = celY - tuzY;
-
-                const tuzCelTav = Math.round(
-                    Math.sqrt(dxTuzCel * dxTuzCel + dyTuzCel * dyTuzCel)
-                );
-
-                let tuzCelIrany = Math.atan2(dxTuzCel, dyTuzCel) * (6400 / (2 * Math.PI));
-
-                if (tuzCelIrany < 0) {
-                    tuzCelIrany += 6400;
-                }
-
-                resultIrany.textContent = Math.round(tuzCelIrany);
-                resultTav.textContent = tuzCelTav;
-                resultToltes.textContent = "-";
-            }
-
-            inputs.forEach(input => {
-                input.addEventListener("input", checkInputs);
-            });
-
-            button.addEventListener("click", calculate);
-
-        </script>
+        <script src="js/config.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/calculator.js"></script>
     </body>
 </html>
